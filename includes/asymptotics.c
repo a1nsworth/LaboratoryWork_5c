@@ -36,16 +36,22 @@ double getTime() {
     return (double) sort_time / CLOCKS_PER_SEC;
 }
 
-void generateRandomArray() {
-
+void generateRandomArray(int *const a, const size_t n) {
+    for (register size_t i = 0; i < n; ++i) {
+        a[i] = rand() % 100;
+    }
 }
 
-void generateOrderedArray() {
-
+void generateOrderedArray(int *const a, const size_t n) {
+    for (register size_t i = 0; i < n; ++i) {
+        a[i] = i;
+    }
 }
 
-void generateOrderedBackwards() {
-
+void generateOrderedBackwards(int *const a, const size_t n) {
+    for (register size_t i = 0; i < n; ++i) {
+        a[i] = n - 1 - i;
+    }
 }
 
 void checkTime(void (*sortFunc )(int *, size_t),
@@ -63,6 +69,30 @@ void checkTime(void (*sortFunc )(int *, size_t),
     TIME_TEST({
                   sortFunc(innerBuffer, size);
               }, time);
+
+    // результаты замера
+    printf(" Status : ");
+    if (isOrdered(innerBuffer, size)) {
+        printf("OK! Time : %.3 f s.\n", time);
+
+        // запись в файл
+        char filename[256] = "logTime";
+        sprintf(filename, "./ data /%s. csv ", filename);
+        FILE *f = fopen(filename, "a");
+        if (f == NULL) {
+            printf(" FileOpenError %s", filename);
+            exit(1);
+        }
+        fprintf(f, "%zu; %.3 f\n", size, time);
+        fclose(f);
+    } else {
+        printf(" Wrong !\n");
+
+        // вывод массива, который не смог быть отсортирован
+        outputArray(innerBuffer, size);
+
+        exit(1);
+    }
 }
 
 void timeExperiment() {
