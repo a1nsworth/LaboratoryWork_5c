@@ -17,6 +17,8 @@
 
 typedef struct SortFunc {
     void (*sort)(int *const a, const size_t n);
+
+    char name[64];
 } SortFunc;
 
 typedef struct GeneratingFunc {
@@ -32,6 +34,23 @@ double getTime() {
     clock_t end_time = clock();
     clock_t sort_time = end_time - start_time;
     return (double) sort_time / CLOCKS_PER_SEC;
+}
+
+void checkTime(void (*sortFunc )(int *, size_t),
+               void (*generateFunc )(int *, size_t),
+               size_t size, char *experimentName) {
+
+    static size_t runCounter = 1;
+// генерация последовательности
+    static int innerBuffer[100000];
+    generateFunc(innerBuffer, size);
+    printf(" Run #% zu| ", runCounter++);
+    printf(" Name : %s\n", experimentName);
+
+    double time;
+    TIME_TEST({
+                  sortFunc(innerBuffer, size);
+              }, time);
 }
 
 void timeExperiment() {
@@ -64,10 +83,10 @@ void timeExperiment() {
     for (size_t size = 10000; size <= 100000; size += 10000) {
         printf(" ------------------------------\n");
         printf(" Size : %d\n", size);
-        for (int i = 0; i < FUNCS_N; i++) {
-            for (int j = 0; j < CASES_N; j++) {
+        for (register size_t i = 0; i < FUNCS_N; i++) {
+            for (register size_t j = 0; j < CASES_N; j++) {
                 // генерация имени файла
-                static char filename[128];
+                static char filename[128] = "statTime";
                 sprintf(filename, "%s_% s_time ",
                         sorts[i].name, generatingFuncs[j].name);
                 checkTime(sorts[i].sort,
