@@ -16,9 +16,9 @@ void swap(int *a, int *b);
 
 void inputArray(int *a, size_t n);
 
-void outputArray(int *a, size_t n);
+void outputArray(const int *a, size_t n);
 
-bool isOrdered(int *a, size_t n);
+bool isOrdered(const int *a, size_t n);
 
 void append(int *a, size_t *n, int x);
 
@@ -42,15 +42,15 @@ void qSort(int *a, size_t n);
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 // Сортировка Подсчетом >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-int getMinElemArray(int *a, size_t n);
+int getMinElemArray(const int *a, size_t n);
 
-int getMaxElemArray(int *a, size_t n);
+int getMaxElemArray(const int *a, size_t n);
 
 void countSort(int *a, size_t n);
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 // Сортировка Слиянием >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-void merge(int *a, size_t sizeA, int *b, size_t sizeB, int *c);
+void merge(const int *a, size_t sizeA, const int *b, size_t sizeB, int *c);
 
 static void
 mergeSort_(int *source, size_t leftBorder, size_t rightBorder, int *buffer);
@@ -62,6 +62,6 @@ void mergeSort(int *a, size_t n);
 void shellSort(int *a, size_t n);
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-x compareInt;
+int compareInts(const void *a, const void *b);
 
 #endif //LABA5C_SORTS_H

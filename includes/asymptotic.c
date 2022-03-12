@@ -77,7 +77,7 @@ void checkTime(void (*sortFunc )(int *, size_t),
 
         // запись в файл
         char filename[256] = "logTime";
-        sprintf(filename, "./ data /%s. csv ", filename);
+        sprintf(filename, "./data/%s.csv ", experimentName);
         FILE *f = fopen(filename, "a");
         if (f == NULL) {
             printf(" FileOpenError %s", filename);

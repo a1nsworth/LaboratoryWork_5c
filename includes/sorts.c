@@ -21,6 +21,13 @@ void outputArray(const int *const a, const size_t n) {
     printf("\n");
 }
 
+bool isOrdered(const int *a, const size_t n) {
+    for (register size_t i = 1; i < n; ++i)
+        if (a[i] < a[i - 1])
+            return false;
+    return true;
+}
+
 void append(int *const a, size_t *n, const int x) {
     a[*n] = x;
     (*n)++;
@@ -199,6 +206,7 @@ void shellSort(int *const a, const size_t n) {
 }
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-int compareInt(const void *a, const void *b) {
+int compareInts(const void *a, const void *b) {
     return *(const int *) a - *(const int *) b;
 }
+
