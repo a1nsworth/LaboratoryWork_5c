@@ -1,6 +1,10 @@
-#include <stdio.h>
+#include "includes/sorts.h"
 
 int main() {
-    printf("Hello, World!\n");
+    int a[] = {5, 4, 3, 2, 1};
+    qSort(a,5);
+
+    outputArray(a, 5);
+
     return 0;
 }
