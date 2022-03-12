@@ -36,6 +36,18 @@ double getTime() {
     return (double) sort_time / CLOCKS_PER_SEC;
 }
 
+void generateRandomArray() {
+
+}
+
+void generateOrderedArray() {
+
+}
+
+void generateOrderedBackwards() {
+
+}
+
 void checkTime(void (*sortFunc )(int *, size_t),
                void (*generateFunc )(int *, size_t),
                size_t size, char *experimentName) {
@@ -86,7 +98,7 @@ void timeExperiment() {
         for (register size_t i = 0; i < FUNCS_N; i++) {
             for (register size_t j = 0; j < CASES_N; j++) {
                 // генерация имени файла
-                static char filename[128] = "statTime";
+                static char filename[128] = "logTime";
                 sprintf(filename, "%s_% s_time ",
                         sorts[i].name, generatingFuncs[j].name);
                 checkTime(sorts[i].sort,
