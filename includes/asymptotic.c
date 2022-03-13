@@ -98,14 +98,16 @@ void checkTime(void (*sortFunc )(int *, size_t),
 void timeExperiment() {
     // описание функций сортировки
     SortFunc sorts[] = {
-            {selectionSort, " selectionSort "},
-            {insertionSort, " insertionSort "},
-            {bubbleSort,    " bubbleSort "},
-            {shellSort,     " shellSort "},
-            {combSort,      " combSort "},
-            {countSort,     " countSort "},
-            {qSort,         " qSort "},
-            {mergeSort,     " mergeSort "},
+            {selectionSort,     " selectionSort "},
+            {insertionSort,     " insertionSort "},
+            {bubbleSort,        " bubbleSort "},
+            {shellSort,         " shellSort "},
+            {combSort,          " combSort "},
+            {countSort,         " countSort "},
+            {qSort,             " qSort "},
+            {mergeSort,         " mergeSort "},
+            {gnomeSort,         " gnomeSort "},
+            {gnomeSortOptimaze, " gnomeSortOptimaze "}
             // вы добавите свои сортировки
     };
     const unsigned FUNCS_N = ARRAY_SIZE (sorts);
