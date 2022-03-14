@@ -44,6 +44,20 @@ void selectionSort(int *a, const size_t n) {
             swap(&a[i], &a[indexMin]);
     }
 }
+
+long long selectionSortNComp(int *a, const size_t n) {
+    register long long nComp = 0;
+    for (register size_t i = 0; ++nComp && i < n; ++i) {
+        size_t indexMin = i;
+        for (register size_t j = i + 1; ++nComp && j < n; ++j)
+            if (++nComp && a[j] < a[indexMin])
+                indexMin = j;
+        if (++nComp && indexMin != i)
+            swap(&a[i], &a[indexMin]);
+    }
+
+    return nComp;
+}
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 // Сортировка Вставками >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
