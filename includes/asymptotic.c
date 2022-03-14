@@ -114,12 +114,12 @@ void checkNComp(
     printf(" Run #%d| ", runCounter++);
     printf(" Name : %s\n", experimentName);
 
-    unsigned long long nComp = sortFuncNComp(innerBuffer, size);
 
     // результаты замера
     printf(" Status : ");
+    unsigned long long nComp = sortFuncNComp(innerBuffer, size);
     if (isOrdered(innerBuffer, size)) {
-        printf("OK!");
+        printf("OK!\n");
 
         // запись в файл
         char filename[256] = "logTime";
@@ -192,8 +192,8 @@ void timeExperiment() {
 void countExperiment() {
     // описание функций сортировки
     SortFuncNComp sortsNComp[] = {
-            {selectionSortNComp, " selectionSort "}
-//            {insertionSort,     " insertionSort "},
+            {selectionSortNComp, " selectionSort "},
+            {insertionSortNComp, " insertionSort "}
 //            {bubbleSort,        " bubbleSort "},
 //            {shellSort,         " shellSort "},
 //            {combSort,          " combSort "},
@@ -218,14 +218,14 @@ void countExperiment() {
     const unsigned CASES_N = ARRAY_SIZE(generatingFuncs);
 
     // запись статистики в файл
-    for (size_t size = 1; size <= 10; size += 1) {
+    for (size_t size = 10000; size <= 100000; size += 10000) {
         printf(" ------------------------------\n");
         printf(" Size : %d\n", size);
         for (register size_t i = 0; i < FUNCS_N; i++) {
             for (register size_t j = 0; j < CASES_N; j++) {
                 // генерация имени файла
                 static char filename[128] = "logTime";
-                sprintf(filename, "%s_%s_time ",
+                sprintf(filename, "%s_%s_operations",
                         sortsNComp[i].name, generatingFuncs[j].name);
                 checkNComp(sortsNComp[i].sort,
                            generatingFuncs[j].generate,
