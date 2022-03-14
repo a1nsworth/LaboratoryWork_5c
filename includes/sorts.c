@@ -45,8 +45,8 @@ void selectionSort(int *a, const size_t n) {
     }
 }
 
-long long selectionSortNComp(int *a, const size_t n) {
-    register long long nComp = 0;
+unsigned long long selectionSortNComp(int *a, const size_t n) {
+    unsigned long long nComp = 0;
     for (register size_t i = 0; ++nComp && i < n; ++i) {
         size_t indexMin = i;
         for (register size_t j = i + 1; ++nComp && j < n; ++j)
@@ -71,6 +71,21 @@ void insertionSort(int *a, const size_t n) {
         }
         a[j] = t;
     }
+}
+
+unsigned long long insertionSortNComp(int *a, const size_t n) {
+    register unsigned long long nComp = 0;
+    for (register size_t i = 1; ++nComp && i < n; ++i) {
+        int t = a[i];
+        register size_t j = i;
+        while (++nComp && j > 0 && a[j - 1] > t) {
+            a[j] = a[j - 1];
+            j--;
+        }
+        a[j] = t;
+    }
+
+    return nComp;
 }
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
