@@ -4,6 +4,9 @@
 
 #include "sorts.h"
 
+#define GET_INDEX_LEFT_CHILD(i) i * 2 + 1
+#define GET_INDEX_RIGHT_CHILD(i) i * 2 + 2
+
 void swap(int *a, int *b) {
     const int t = *a;
     *a = *b;
@@ -45,8 +48,8 @@ void selectionSort(int *a, const size_t n) {
     }
 }
 
-long long selectionSortNComp(int *a, const size_t n) {
-    long long nComp = 0;
+unsigned long long selectionSortNComp(int *a, const size_t n) {
+    unsigned long long nComp = 0;
     for (register size_t i = 0; ++nComp && i < n; ++i) {
         size_t indexMin = i;
         for (register size_t j = i + 1; ++nComp && j < n; ++j)
@@ -73,8 +76,8 @@ void insertionSort(int *a, const size_t n) {
     }
 }
 
-long long insertionSortNComp(int *a, const size_t n) {
-    long long nComp = 0;
+unsigned long long insertionSortNComp(int *a, const size_t n) {
+    unsigned long long nComp = 0;
     for (register size_t i = 1; ++nComp && i < n; ++i) {
         int t = a[i];
         register size_t j = i;
@@ -97,8 +100,8 @@ void bubbleSort(int *a, const size_t n) {
                 swap(&a[j - 1], &a[j]);
 }
 
-long long bubbleSortNComp(int *a, const size_t n) {
-    long long nComp = 0;
+unsigned long long bubbleSortNComp(int *a, const size_t n) {
+    unsigned long long nComp = 0;
     for (register size_t i = 0; ++nComp && i < n - 1; ++i)
         for (register size_t j = n - 1; ++nComp && j > i; j--)
             if (++nComp && a[j] < a[j - 1])
@@ -124,10 +127,10 @@ void combSort(int *a, const size_t n) {
     }
 }
 
-long long combSortNComp(int *a, const size_t n) {
+unsigned long long combSortNComp(int *a, const size_t n) {
     size_t step = n;
     bool swapped = true;
-    long long nComp = 0;
+    unsigned long long nComp = 0;
     while ((step > 1 || swapped) && ++nComp) {
         if (++nComp && step > 1)
             step /= 1.24733;
@@ -173,10 +176,10 @@ void qSort(int *a, const size_t n) {
         qSort(a, rightBorder + 1);
 }
 
-long long qSortNComp(int *a, const size_t n) {
+unsigned long long qSortNComp(int *a, const size_t n) {
     assert(n > 0);
 
-    static long long nComp;
+    static unsigned long long nComp;
     register int leftBorder = 0;
     register int rightBorder = n - 1;
     int middle = leftBorder + (rightBorder - leftBorder) / 2;
@@ -245,10 +248,10 @@ void countSort(int *a, const size_t n) {
     free(arrayCountNumbers);
 }
 
-long long countSortNComp(int *a, const size_t n) {
+unsigned long long countSortNComp(int *a, const size_t n) {
     assert(n > 0);
 
-    long long nComp = 0;
+    unsigned long long nComp = 0;
     int elemMin = getMinElemArray(a, n);
     int elemMax = getMaxElemArray(a, n);
     size_t sizeArrayCountNumbers = elemMax - elemMin + 1;
@@ -308,8 +311,8 @@ void mergeSort(int *a, const size_t n) {
     free(buffer);
 }
 
-long long mergeNComp(const int *a, const size_t sizeA, const int *b, const size_t sizeB, int *c) {
-    long long nComp = 0;
+unsigned long long mergeNComp(const int *a, const size_t sizeA, const int *b, const size_t sizeB, int *c) {
+    unsigned long long nComp = 0;
     register size_t iReadA = 0;
     register size_t iReadB = 0;
     while (++nComp && (iReadA < sizeA || iReadB < sizeB)) {
@@ -325,9 +328,9 @@ long long mergeNComp(const int *a, const size_t sizeA, const int *b, const size_
     return nComp;
 }
 
-static long long
+static unsigned long long
 mergeSortNComp_(int *source, const size_t leftBorder, const size_t rightBorder, int *buffer) {
-    static long long nComp;
+    static unsigned long long nComp;
     int sizeSource = (int) rightBorder - leftBorder;
     if (++nComp && sizeSource <= 1)
         return 0;
@@ -344,7 +347,7 @@ mergeSortNComp_(int *source, const size_t leftBorder, const size_t rightBorder, 
     return nComp;
 }
 
-long long mergeSortNComp(int *a, const size_t n) {
+unsigned long long mergeSortNComp(int *a, const size_t n) {
     int *buffer = (int *) malloc(n * sizeof(int));
     int nComp = mergeSortNComp_(a, 0, n, buffer);
     free(buffer);
@@ -363,8 +366,8 @@ void shellSort(int *const a, const size_t n) {
     }
 }
 
-long long shellSortNComp(int *const a, const size_t n) {
-    long long nComp = 0;
+unsigned long long shellSortNComp(int *const a, const size_t n) {
+    unsigned long long nComp = 0;
     for (register size_t s = n / 2; ++nComp && s > 0; s /= 2) {
         for (register int i = s; ++nComp && i < n; ++i) {
             for (register int j = i - s; ++nComp && j >= 0 && a[j] > a[j + s]; j -= s)
@@ -389,9 +392,9 @@ void gnomeSort(int *const a, const size_t n) {
     }
 }
 
-long long gnomeSortNComp(int *const a, const size_t n) {
+unsigned long long gnomeSortNComp(int *const a, const size_t n) {
     register size_t i = 1;
-    long long nComp = 0;
+    unsigned long long nComp = 0;
     while (++nComp && i < n) {
         if (++nComp && a[i - 1] <= a[i])
             i++;
@@ -424,10 +427,10 @@ void gnomeSortOptimaze(int *const a, const size_t n) {
     }
 }
 
-long long gnomeSortOptimazeNComp(int *const a, const size_t n) {
+unsigned long long gnomeSortOptimazeNComp(int *const a, const size_t n) {
     register size_t i = 1;
     register size_t j = 2;
-    long long nComp = 0;
+    unsigned long long nComp = 0;
     while (++nComp && i < n) {
         if (++nComp && a[i - 1] <= a[i]) {
             i = j;
@@ -485,8 +488,8 @@ void radixSort(int *const a, const size_t n) {
         countSortByExp(a, n, exp);
 }
 
-unsigned int countSortByExpNComp(int *const a, const size_t n, const unsigned int exp) {
-    unsigned int nComp = 0;
+unsigned long long countSortByExpNComp(int *const a, const size_t n, const unsigned int exp) {
+    unsigned long long nComp = 0;
     int *outputArray = (int *) malloc(n * sizeof(int));
     int counter[4] = {0};
 
@@ -507,13 +510,138 @@ unsigned int countSortByExpNComp(int *const a, const size_t n, const unsigned in
     return nComp;
 }
 
-unsigned int radixSortNComp(int *const a, const size_t n) {
+unsigned long long radixSortNComp(int *const a, const size_t n) {
     int max = getMaxElemArray(a, n);
-    unsigned int nComp = 0;
+    unsigned long long nComp = 0;
 
     for (int exp = 0; ++nComp && max >> exp > 0; exp += 2)
         nComp += countSortByExpNComp(a, n, exp);
 
     return nComp;
 }
+// ************************************************************************************
+
+// Сортировка кучей **********************************************************************
+typedef struct parent {
+    size_t indexParent;
+    size_t indexLeftChild;
+    size_t indexRightChild;
+} parent;
+
+void heapify(int *const a, const size_t n, const size_t i) {
+    parent p = {i, GET_INDEX_LEFT_CHILD(i), GET_INDEX_RIGHT_CHILD(i)};
+
+    if (p.indexLeftChild < n && a[p.indexLeftChild] > a[p.indexParent])
+        p.indexParent = p.indexLeftChild;
+
+    if (p.indexRightChild < n && a[p.indexRightChild] > a[p.indexParent])
+        p.indexParent = p.indexRightChild;
+
+    if (p.indexParent != i) {
+        swap(&a[i], &a[p.indexParent]);
+
+        // Создание сортирующей кучи
+        heapify(a, n, p.indexParent);
+    }
+}
+
+void heapSort(int *const a, const size_t n) {
+    for (register int i = n / 2 - 1; i >= 0; i--)
+        heapify(a, n, i);
+
+    for (register size_t i = n - 1; i > 0; i--) {
+        // Добавление отсортированого элемента в конец кучи
+        swap(&a[0], &a[i]);
+
+        heapify(a, i, 0);
+    }
+}
+
+unsigned long long heapifyNComp(int *const a, const size_t n, const size_t i, const unsigned long long counter) {
+    parent p = {i, GET_INDEX_LEFT_CHILD(i), GET_INDEX_RIGHT_CHILD(i)};
+    unsigned long long nComp = counter;
+
+    if (++nComp && p.indexLeftChild < n && a[p.indexLeftChild] > a[p.indexParent])
+        p.indexParent = p.indexLeftChild;
+
+    if (++nComp && p.indexRightChild < n && a[p.indexRightChild] > a[p.indexParent])
+        p.indexParent = p.indexRightChild;
+
+    if (++nComp && p.indexParent != i) {
+        swap(&a[i], &a[p.indexParent]);
+
+        // Создание сортирующей кучи
+        heapifyNComp(a, n, p.indexParent, nComp);
+    }
+
+    return nComp;
+}
+
+unsigned long long heapSortNComp(int *const a, const size_t n) {
+    unsigned long long nComp = 0;
+    for (register int i = n / 2 - 1; ++nComp && i >= 0; i--)
+        nComp += heapifyNComp(a, n, i, 0);
+
+    for (register size_t i = n - 1; ++nComp && i > 0; i--) {
+        // Добавление отсортированого элемента в конец кучи
+        swap(&a[0], &a[i]);
+
+        nComp += heapifyNComp(a, i, 0, 0);
+    }
+
+    return nComp;
+}
+// ************************************************************************************
+
+// Блинная сортировка *****************************************************************
+void reverseArray(int *const a, const size_t n) {
+    for (register int *i = a, *j = a + n; i < j; i++, j--)
+        swap(j, i);
+}
+
+size_t getMaxIndex(const int *const a, const size_t n) {
+    size_t maxIndex = 0;
+    int maxElem = a[0];
+    for (register size_t i = 1; i < n; ++i)
+        if (a[i] > maxElem) {
+            maxElem = a[i];
+            maxIndex = i;
+        }
+
+    return maxIndex;
+}
+
+void pancakeSort(int *const a, const size_t n) {
+    for (register size_t currentSize = n; currentSize > 0; currentSize--) {
+        size_t maxIndex = getMaxIndex(a, currentSize);
+
+        if (maxIndex != currentSize - 1) {
+            reverseArray(a, maxIndex);
+            reverseArray(a, currentSize - 1);
+        }
+    }
+}
+
+unsigned long long reverseArrayNComp(int *const a, const size_t n) {
+    unsigned long long nComp = 0;
+    for (register int *i = a, *j = a + n; ++nComp && i < j; i++, j--)
+        swap(j, i);
+
+    return nComp;
+}
+
+unsigned long long pancakeSortNComp(int *const a, const size_t n) {
+    unsigned long long nComp = 0;
+    for (register size_t currentSize = n; ++nComp && currentSize > 0; currentSize--) {
+        size_t maxIndex = getMaxIndex(a, currentSize);
+
+        if (++nComp && maxIndex != currentSize - 1) {
+            nComp += reverseArrayNComp(a, maxIndex);
+            nComp += reverseArrayNComp(a, currentSize - 1);
+        }
+    }
+
+    return nComp;
+}
+
 // ************************************************************************************

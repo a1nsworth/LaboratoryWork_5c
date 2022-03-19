@@ -22,7 +22,7 @@ typedef struct SortFunc {
 } SortFunc;
 
 typedef struct SortFuncNComp {
-    long long (*sort)(int *const a, const size_t n);
+    unsigned long long (*sort)(int *const a, const size_t n);
 
     char name[64];
 } SortFuncNComp;
@@ -143,16 +143,9 @@ void checkNComp(
 void countExperiment() {
     // описание функций сортировки
     SortFuncNComp sortsNComp[] = {
-            {selectionSortNComp, " selectionSort "},
-            {insertionSortNComp, " insertionSort "},
-            {bubbleSortNComp,        " bubbleSort "},
-            {shellSortNComp,         " shellSort "},
-            {combSortNComp,          " combSort "},
-            {countSortNComp,         " countSort "},
-            {qSortNComp,             " qSort "},
-            {mergeSortNComp,         " mergeSort "},
-            {gnomeSortNComp,         " gnomeSort "},
-//            {gnomeSortOptimaze, " gnomeSortOptimaze "}
+            {radixSortNComp,         " radixSort "},
+            {heapSortNComp,         " heapSort "},
+            {pancakeSortNComp,         " pancakeSort "}
             // вы добавите свои сортировки
     };
     const unsigned FUNCS_N = ARRAY_SIZE (sortsNComp);
@@ -190,16 +183,9 @@ void countExperiment() {
 void timeExperiment() {
     // описание функций сортировки
     SortFunc sorts[] = {
-            {selectionSort,     " selectionSort "},
-            {insertionSort,     " insertionSort "},
-            {bubbleSort,        " bubbleSort "},
-            {shellSort,         " shellSort "},
-            {combSort,          " combSort "},
-            {countSort,         " countSort "},
-            {qSort,             " qSort "},
-            {mergeSort,         " mergeSort "},
-            {gnomeSort,         " gnomeSort "},
-            {gnomeSortOptimaze, " gnomeSortOptimaze "}
+            {radixSort,         " radixSort "},
+            {heapSort,         " heapSort "},
+            {pancakeSort,         " pancakeSort "}
             // вы добавите свои сортировки
     };
     const unsigned FUNCS_N = ARRAY_SIZE (sorts);
