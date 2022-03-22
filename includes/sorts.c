@@ -329,15 +329,16 @@ unsigned long long mergeNComp(const int *a, const size_t sizeA, const int *b, co
 }
 
 static unsigned long long
-mergeSortNComp_(int *source, const size_t leftBorder, const size_t rightBorder, int *buffer) {
-    static unsigned long long nComp;
+mergeSortNComp_(int *source, const size_t leftBorder, const size_t rightBorder, int *buffer,
+                unsigned long long counter) {
+    unsigned long long nComp = counter;
     int sizeSource = (int) rightBorder - leftBorder;
     if (++nComp && sizeSource <= 1)
-        return 0;
+        return 1;
 
     size_t middle = (leftBorder + rightBorder) / 2;
-    nComp += mergeSortNComp_(source, leftBorder, middle, buffer);
-    nComp += mergeSortNComp_(source, middle, rightBorder, buffer);
+    nComp += mergeSortNComp_(source, leftBorder, middle, buffer, nComp);
+    nComp += mergeSortNComp_(source, middle, rightBorder, buffer, nComp);
 
     nComp += mergeNComp(source + leftBorder, middle - leftBorder, source + middle, rightBorder - middle, buffer);
 
@@ -349,7 +350,7 @@ mergeSortNComp_(int *source, const size_t leftBorder, const size_t rightBorder, 
 
 unsigned long long mergeSortNComp(int *a, const size_t n) {
     int *buffer = (int *) malloc(n * sizeof(int));
-    int nComp = mergeSortNComp_(a, 0, n, buffer);
+    unsigned long long nComp = mergeSortNComp_(a, 0, n, buffer,0);
     free(buffer);
 
     return nComp;

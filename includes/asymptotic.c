@@ -140,12 +140,11 @@ void checkNComp(
         exit(1);
     }
 }
+
 void countExperiment() {
     // описание функций сортировки
     SortFuncNComp sortsNComp[] = {
-            {radixSortNComp,         " radixSort "},
-            {heapSortNComp,         " heapSort "},
-            {pancakeSortNComp,         " pancakeSort "}
+            {mergeSortNComp, " mergeSort "}
             // вы добавите свои сортировки
     };
     const unsigned FUNCS_N = ARRAY_SIZE (sortsNComp);
@@ -183,9 +182,7 @@ void countExperiment() {
 void timeExperiment() {
     // описание функций сортировки
     SortFunc sorts[] = {
-            {radixSort,         " radixSort "},
-            {heapSort,         " heapSort "},
-            {pancakeSort,         " pancakeSort "}
+            {mergeSort, " mergeSort "}
             // вы добавите свои сортировки
     };
     const unsigned FUNCS_N = ARRAY_SIZE (sorts);

@@ -76,7 +76,8 @@ static void
 mergeSort_(int *source, size_t leftBorder, size_t rightBorder, int *buffer);
 
 static unsigned long long
-mergeSortNComp_(int *source, size_t leftBorder, size_t rightBorder, int *buffer);
+mergeSortNComp_(int *source, size_t leftBorder, size_t rightBorder, int *buffer, unsigned long long
+counter);
 
 void mergeSort(int *a, size_t n);
 
